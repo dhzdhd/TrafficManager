@@ -1,0 +1,14 @@
+{
+  "folders": [
+    {
+      "path": "sim"
+    },
+    {
+      "path": "processor"
+    },
+    {
+      "path": "."
+    }
+  ],
+  "settings": {}
+}
