@@ -29,7 +29,7 @@ fn move_viewer_camera(
     time: Res<Time>,
     mut query: Query<&mut Transform, With<WorldCamera>>,
 ) {
-    const SPEED: f32 = 100.0;
+    const SPEED: f32 = 500.0;
 
     if let Ok(mut camera_transform) = query.get_single_mut() {
         let mut direction = Vec3::ZERO;
@@ -96,7 +96,7 @@ fn setup(
         },
         cascade_shadow_config: CascadeShadowConfigBuilder {
             first_cascade_far_bound: 4.0,
-            maximum_distance: 10.0,
+            maximum_distance: 100.0,
             ..default()
         }
         .into(),
@@ -106,18 +106,19 @@ fn setup(
     commands.spawn((
         WorldCamera,
         Camera3dBundle {
-            transform: Transform::from_xyz(50.0f32, 50.0f32, 50.0f32)
+            transform: Transform::from_xyz(500.0f32, 500.0f32, 500.0f32)
                 .looking_at(Vec3::ZERO, Vec3::Y),
             ..default()
         },
     ));
 
+    let size = 10000.0;
     commands.spawn((
+        Ground,
         PbrBundle {
-            mesh: meshes.add(Plane3d::default().mesh().size(200., 200.)),
-            material: materials.add(Color::BLACK.with_alpha(20.0)),
+            mesh: meshes.add(Plane3d::default().mesh().size(size, size)),
+            material: materials.add(Color::WHITE.darker(0.75)),
             ..default()
         },
-        Ground,
     ));
 }
