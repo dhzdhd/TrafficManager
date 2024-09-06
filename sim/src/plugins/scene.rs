@@ -82,10 +82,12 @@ fn setup(
     mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
+    asset_server: Res<AssetServer>,
 ) {
+    // Sunlight
     commands.spawn(DirectionalLightBundle {
         directional_light: DirectionalLight {
-            illuminance: light_consts::lux::FULL_DAYLIGHT,
+            illuminance: light_consts::lux::AMBIENT_DAYLIGHT,
             shadows_enabled: true,
             ..default()
         },
@@ -94,15 +96,16 @@ fn setup(
             rotation: Quat::from_rotation_x(-PI / 4.),
             ..default()
         },
-        cascade_shadow_config: CascadeShadowConfigBuilder {
-            first_cascade_far_bound: 4.0,
-            maximum_distance: 100.0,
-            ..default()
-        }
-        .into(),
+        // cascade_shadow_config: CascadeShadowConfigBuilder {
+        //     first_cascade_far_bound: 4.0,
+        //     maximum_distance: 100.0,
+        //     ..default()
+        // }
+        // .into(),
         ..default()
     });
 
+    // World camera
     commands.spawn((
         WorldCamera,
         Camera3dBundle {
@@ -112,13 +115,28 @@ fn setup(
         },
     ));
 
+    // Ground
     let size = 10000.0;
     commands.spawn((
         Ground,
         PbrBundle {
             mesh: meshes.add(Plane3d::default().mesh().size(size, size)),
-            material: materials.add(Color::WHITE.darker(0.75)),
+            material: materials.add(Color::srgb_u8(17, 124, 19)),
             ..default()
         },
     ));
+
+    // Base scene
+    commands.spawn(SceneBundle {
+        scene: asset_server.load(GltfAssetLabel::Scene(0).from_asset(SCENE_PATH)),
+        transform: Transform {
+            scale: Vec3 {
+                x: 200.0,
+                y: 200.0,
+                z: 200.0,
+            },
+            ..default()
+        },
+        ..default()
+    });
 }

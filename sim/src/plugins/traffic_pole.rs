@@ -32,26 +32,26 @@ fn setup(
         ..default()
     });
 
-    let mut graph = AnimationGraph::new();
-    let animations = graph
-        .add_clips(
-            [
-                GltfAssetLabel::Animation(1).from_asset(TRAFFIC_POLE_PATH),
-                GltfAssetLabel::Animation(0).from_asset(TRAFFIC_POLE_PATH),
-            ]
-            .into_iter()
-            .map(|path| asset_server.load(path)),
-            1.0,
-            graph.root,
-        )
-        .collect();
+    // let mut graph = AnimationGraph::new();
+    // let animations = graph
+    //     .add_clips(
+    //         [
+    //             GltfAssetLabel::Animation(1).from_asset(TRAFFIC_POLE_PATH),
+    //             GltfAssetLabel::Animation(0).from_asset(TRAFFIC_POLE_PATH),
+    //         ]
+    //         .into_iter()
+    //         .map(|path| asset_server.load(path)),
+    //         1.0,
+    //         graph.root,
+    //     )
+    //     .collect();
 
-    // Insert a resource with the current scene information
-    let graph = graphs.add(graph);
-    commands.insert_resource(Animations {
-        animations,
-        graph: graph.clone(),
-    });
+    // // Insert a resource with the current scene information
+    // let graph = graphs.add(graph);
+    // commands.insert_resource(Animations {
+    //     animations,
+    //     graph: graph.clone(),
+    // });
 }
 
 fn animate(
