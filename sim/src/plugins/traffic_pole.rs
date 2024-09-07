@@ -1,11 +1,11 @@
-use std::time::Duration;
+use std::{f32::consts::PI, time::Duration};
 
 use bevy::{
     app::{Plugin, Startup},
     prelude::*,
 };
 
-const TRAFFIC_POLE_PATH: &str = "Three way traffic light.glb";
+const TRAFFIC_POLE_PATH: &str = "Traffic Light.glb";
 
 #[derive(Resource)]
 struct Animations {
@@ -22,15 +22,31 @@ impl Plugin for TrafficPolePlugin {
     }
 }
 
+fn dtr(degrees: f32) -> f32 {
+    degrees * PI / 180.0
+}
+
 fn setup(
     mut commands: Commands,
     asset_server: Res<AssetServer>,
     mut graphs: ResMut<Assets<AnimationGraph>>,
 ) {
-    commands.spawn(SceneBundle {
-        scene: asset_server.load(GltfAssetLabel::Scene(0).from_asset(TRAFFIC_POLE_PATH)),
-        ..default()
-    });
+    let positions = [
+        (Vec2::new(-100.0, 100.0), Quat::from_rotation_y(dtr(270.0))),
+        (Vec2::new(-100.0, -100.0), Quat::from_rotation_y(dtr(180.0))),
+        (Vec2::new(100.0, -100.0), Quat::from_rotation_y(dtr(90.0))),
+        (Vec2::new(100.0, 100.0), Quat::from_rotation_y(dtr(0.0))),
+    ];
+
+    for (position, rotation) in positions {
+        commands.spawn(SceneBundle {
+            scene: asset_server.load(GltfAssetLabel::Scene(0).from_asset(TRAFFIC_POLE_PATH)),
+            transform: Transform::from_translation(Vec3::new(position.x, 0.0, position.y))
+                .with_rotation(rotation)
+                .with_scale(Vec3::new(20.0, 20.0, 20.0)),
+            ..default()
+        });
+    }
 
     // let mut graph = AnimationGraph::new();
     // let animations = graph

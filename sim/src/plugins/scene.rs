@@ -92,7 +92,7 @@ fn setup(
             ..default()
         },
         transform: Transform {
-            translation: Vec3::new(0.0, 2.0, 0.0),
+            translation: Vec3::new(0.0, 20.0, 0.0),
             rotation: Quat::from_rotation_x(-PI / 4.),
             ..default()
         },
