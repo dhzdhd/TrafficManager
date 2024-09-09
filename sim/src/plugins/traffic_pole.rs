@@ -66,6 +66,7 @@ fn setup(
                         .spawn((
                             Name::new(format!("Light {light_index}")),
                             SpotLightBundle {
+                                visibility: Visibility::Hidden,
                                 transform: Transform::from_xyz(
                                     -3.77,
                                     3.5 + (light_index as f32) * 0.3,
