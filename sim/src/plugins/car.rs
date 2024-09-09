@@ -5,13 +5,16 @@ use bevy::prelude::*;
 
 pub struct CarPlugin;
 
+#[derive(Component)]
+struct Speed(f32);
+
 impl Plugin for CarPlugin {
     fn build(&self, app: &mut bevy::prelude::App) {
-        app.add_systems(Startup, setup);
+        app.add_systems(Startup, spawn_cars);
     }
 }
 
-fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
+fn spawn_cars(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands.spawn(SceneBundle {
         scene: asset_server.load(GltfAssetLabel::Scene(0).from_asset("vehicles/suv.glb")),
 

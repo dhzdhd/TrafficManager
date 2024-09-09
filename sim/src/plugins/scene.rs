@@ -127,16 +127,19 @@ fn setup(
     ));
 
     // Base scene
-    commands.spawn(SceneBundle {
-        scene: asset_server.load(GltfAssetLabel::Scene(0).from_asset(SCENE_PATH)),
-        transform: Transform {
-            scale: Vec3 {
-                x: 200.0,
-                y: 200.0,
-                z: 200.0,
+    commands.spawn((
+        Name::new("Base scene"),
+        SceneBundle {
+            scene: asset_server.load(GltfAssetLabel::Scene(0).from_asset(SCENE_PATH)),
+            transform: Transform {
+                scale: Vec3 {
+                    x: 200.0,
+                    y: 200.0,
+                    z: 200.0,
+                },
+                ..default()
             },
             ..default()
         },
-        ..default()
-    });
+    ));
 }
