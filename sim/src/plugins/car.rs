@@ -16,7 +16,7 @@ impl Plugin for CarPlugin {
 
 fn spawn_cars(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands.spawn(SceneBundle {
-        scene: asset_server.load(GltfAssetLabel::Scene(0).from_asset("vehicles/suv.glb")),
+        scene: asset_server.load(GltfAssetLabel::Scene(0).from_asset("models/vehicles/suv.glb")),
 
         transform: Transform::from_translation(Vec3::new(150.0, 0.0, -20.0))
             .with_rotation(Quat::from_rotation_y(3.0 * PI / 2.0))

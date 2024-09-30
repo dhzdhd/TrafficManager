@@ -6,7 +6,7 @@ use bevy::{
     prelude::*,
 };
 
-const TRAFFIC_POLE_PATH: &str = "Traffic Light.glb";
+const TRAFFIC_POLE_PATH: &str = "models/Traffic Light.glb";
 
 #[derive(Resource)]
 struct Animations {

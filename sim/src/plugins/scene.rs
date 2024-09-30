@@ -3,11 +3,10 @@ use std::f32::consts::PI;
 use bevy::{
     app::{Plugin, Startup},
     input::mouse::MouseMotion,
-    pbr::CascadeShadowConfigBuilder,
     prelude::*,
 };
 
-const SCENE_PATH: &str = "scene.glb";
+const SCENE_PATH: &str = "models/scene.glb";
 
 #[derive(Component)]
 pub struct WorldCamera;
@@ -109,6 +108,10 @@ fn setup(
     commands.spawn((
         WorldCamera,
         Camera3dBundle {
+            camera: Camera {
+                order: 1,
+                ..default()
+            },
             transform: Transform::from_xyz(500.0f32, 500.0f32, 500.0f32)
                 .looking_at(Vec3::ZERO, Vec3::Y),
             ..default()

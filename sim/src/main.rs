@@ -8,11 +8,18 @@ use plugins::car::CarPlugin;
 use plugins::scene::ScenePlugin;
 use plugins::state::SimStatePlugin;
 use plugins::traffic_pole::TrafficPolePlugin;
+use plugins::ui::UiPlugin;
 
 fn main() {
     App::new()
         .add_plugins(DefaultPlugins)
         .add_plugins(WorldInspectorPlugin::new())
-        .add_plugins((SimStatePlugin, ScenePlugin, TrafficPolePlugin, CarPlugin))
+        .add_plugins((
+            SimStatePlugin,
+            UiPlugin,
+            ScenePlugin,
+            TrafficPolePlugin,
+            CarPlugin,
+        ))
         .run();
 }
